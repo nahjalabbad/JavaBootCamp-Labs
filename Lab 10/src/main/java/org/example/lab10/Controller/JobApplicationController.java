@@ -28,11 +28,12 @@ public class JobApplicationController {
             return ResponseEntity.badRequest().body(message);
         }
         Integer application1= jobApplicationService.addApplications(application);
-        if (application1==1) {
+
+        if (application1==1){
             return ResponseEntity.ok().body(new ApiResponse("Application Applied"));
         }
         if (application1==2){
-            return ResponseEntity.badRequest().body(new ApiResponse("User ID not found"));
+            return ResponseEntity.badRequest().body(new ApiResponse("User Role is not JOB_SEEKER"));
         }
         return ResponseEntity.badRequest().body(new ApiResponse("Post ID not found"));
     }

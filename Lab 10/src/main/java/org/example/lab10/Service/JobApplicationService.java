@@ -23,21 +23,32 @@ public class JobApplicationService {
         return jobApplicationRepository.findAll();
     }
 
-    public Integer addApplications(JobApplication application){
-        if (jobPostRepository.existsById(application.getJobPostId())&& userRepository.existsById(application.getUserId())) {
-            jobApplicationRepository.save(application);
-            return 1;
-        }
-        if (!jobPostRepository.existsById(application.getUserId())){
-            return 2;
+    public Integer addApplications(JobApplication application) {
+        List<User> users = userRepository.findAll();
+        List<JobPost> posts = jobPostRepository.findAll();
+        for (User user : users) {
+            for (JobPost post : posts) {
+                if (post.getId().equals(application.getJobPostId())) {
+                    if (user.getId().equals(application.getUserId())) {
+                        if (user.getRole().equalsIgnoreCase("JOB_SEEKER")) {
+                            jobApplicationRepository.save(application);
+                            return 1;
+                        }
+                    }
+                    return 2;
+                }
+            }
         }
         return 3;
     }
 
     public Boolean updateApplications(Integer postId, JobApplication application){
+        List<User> users=userRepository.findAll();
         JobApplication application1=jobApplicationRepository.getById(postId);
-        if (application1==null){
+        for (User user:users){
+        if (application1==null&& user.getRole().equalsIgnoreCase("JOB_SEEKER")){
             return false;
+            }
         }
         application1.setJobPostId(application.getJobPostId());
         application1.setUserId(application.getUserId());
@@ -47,8 +58,11 @@ public class JobApplicationService {
 
     public Boolean deleteApplications(Integer postId){
         JobApplication application1=jobApplicationRepository.getById(postId);
-        if (application1==null){
+        List<User> users=userRepository.findAll();
+        for (User user:users){
+        if (application1==null&& user.getRole().equalsIgnoreCase("JOB_SEEKER")){
             return false;
+            }
         }
         jobApplicationRepository.delete(application1);
         return true;

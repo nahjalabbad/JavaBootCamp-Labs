@@ -26,8 +26,14 @@ public class JobPostController {
             String message=errors.getFieldError().getDefaultMessage();
             return ResponseEntity.badRequest().body(message);
         }
-        jobPostService.addPosts(post);
-        return ResponseEntity.ok().body(new ApiResponse("Post Added"));
+        Integer userrole=jobPostService.addPosts(post);
+        if (userrole==1) {
+            return ResponseEntity.ok().body(new ApiResponse("Post Added"));
+        }
+        else if (userrole==2) {
+            return ResponseEntity.badRequest().body(new ApiResponse("User ID not found "));
+        }
+        return ResponseEntity.badRequest().body(new ApiResponse("User Role is not EMPLOYER "));
     }
 
     @PutMapping("/update/{jpId}")
