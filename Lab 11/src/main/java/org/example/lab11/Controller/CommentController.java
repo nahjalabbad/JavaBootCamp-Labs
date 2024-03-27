@@ -53,6 +53,8 @@ public class CommentController {
 
     }
 
+    //                              EXTRA ENDPOINTS
+
     @GetMapping("/comment-user/{id}")
     public ResponseEntity getCommentByUser(@PathVariable Integer id){
        List<Comment> getComments= commentService.getCommentByUser(id);
