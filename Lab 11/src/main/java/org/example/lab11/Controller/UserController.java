@@ -52,6 +52,8 @@ public class UserController {
 
     }
 
+    //                              EXTRA ENDPOINTS
+
     @GetMapping("/login/{username}/{password}")
     public ResponseEntity logIn(@PathVariable String username,@PathVariable String password ){
         userService.logIn(username,password);
