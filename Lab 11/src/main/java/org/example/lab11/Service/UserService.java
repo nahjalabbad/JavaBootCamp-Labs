@@ -47,6 +47,8 @@ public class UserService {
 
     }
 
+    //                              EXTRA ENDPOINTS
+
     public User logIn(String username, String password) {
         User user = userRepository.logIn(username, password);
         if (user == null) {
