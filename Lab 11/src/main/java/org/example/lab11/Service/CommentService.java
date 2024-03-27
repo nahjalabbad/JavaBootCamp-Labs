@@ -58,6 +58,8 @@ public class CommentService {
         commentRepository.delete(comment);
     }
 
+    //                              EXTRA ENDPOINTS
+
     public List<Comment> getCommentByUser(Integer userId){
         List<Comment> getAllComments=commentRepository.getCommentByUserId(userId);
         if (getAllComments.isEmpty()){
