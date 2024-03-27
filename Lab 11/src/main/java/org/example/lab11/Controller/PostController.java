@@ -54,6 +54,8 @@ public class PostController {
 
     }
 
+    //                              EXTRA ENDPOINTS
+
     @GetMapping("/get-title/{title}")
     public ResponseEntity getPostByTitle(@PathVariable String title){
         Post post= postService.getPostByTitle(title);
