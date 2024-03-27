@@ -59,6 +59,8 @@ public class PostService {
         postRepository.delete(post);
     }
 
+    //                              EXTRA ENDPOINTS
+
     public Post getPostByTitle(String title){
         Post post=postRepository.getPostByTitleIgnoreCase(title);
         if (post==null){
