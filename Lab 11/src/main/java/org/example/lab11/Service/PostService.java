@@ -29,8 +29,11 @@ public class PostService {
     public void addPost(Post post){
         User user=userRepository.findUserByUserId(post.getUserId());
         Category category=categoryRepository.findCategoriesByCategoryId(post.getCategoryId());
-        if (category==null&&user==null) {
-            throw new ApiException("Post ID or User ID does not match the one in the system");
+        if (category==null) {
+            throw new ApiException("Category ID does not match the one in the system");
+        }
+            if (user==null) {
+            throw new ApiException("User ID does not match the one in the system");
         }
         post.setPublishDate(LocalDate.now());
         postRepository.save(post);
